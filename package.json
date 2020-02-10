@@ -33,7 +33,6 @@
     "prettier": "^1.19.1",
     "ts-jest": "^25.2.0",
     "tslint-config-prettier": "^1.18.0"
-    
   },
   "devDependencies": {
     "@types/node": "^13.7.0",
