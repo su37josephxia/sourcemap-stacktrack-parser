@@ -248,13 +248,13 @@ indent_size = 2
 
 ### 设置 git 提交的校验钩子
 
-安装husky、conventional库
+#### 安装husky库
 
 ```js
-npm install husky @commitlint/config-conventional @commitlint/cli commitizen cz-conventional-changelog -d
+npm install husky -d
 ```
 
-新建.huskyrc
+#### 新建.huskyrc
 
 ```js
 {
@@ -264,9 +264,11 @@ npm install husky @commitlint/config-conventional @commitlint/cli commitizen cz-
 }
 ```
 
+#### 验证
 
+![image-20200210174945767](assets/image-20200210174945767.png)
 
-### TDD方式编写功能
+## TDD方式编写功能
 
 
 
