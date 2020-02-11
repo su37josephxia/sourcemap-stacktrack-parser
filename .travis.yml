@@ -6,3 +6,5 @@ cache:				# 缓存 node_js 依赖，提升第二次构建的效率
   - node_modules
 test:
   - npm run test # 运行自动测试框架
+after_success:			# 构建成功后的自定义操作
+  - npm run codecov		# 生成 Github 首页的 codecov 图标

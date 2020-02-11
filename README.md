@@ -1,4 +1,4 @@
-# 从0到1开发一个开源项目(TS + ESlint + Jest)
+# 从0到1开发一个开源项目(TS + ESlint + Jest + TravisCI)
 
 [toc]
 
@@ -274,11 +274,91 @@ npm install husky -d
 
 Travis CI 提供的是持续集成服务，它仅支持 Github，不支持其他代码托管。它需要绑定 Github 上面的项目，还需要该项目含有构建或者测试脚本。只要有新的代码，就会自动抓取。然后，提供一个虚拟机环境，执行测试，完成构建，还能部署到服务器。只要代码有变更，就自动运行构建和测试，反馈运行结果。确保符合预期以后，再将新代码集成到主干。
 
-登录
+
+
+我们需要
+
+- 测试
+- 报告分析
+
+
+
+#### 登录TravicCI网站
 
 登录https://www.travis-ci.org/网站
 
-#### 测试覆盖率
+使用github账号登录系统
+
+#### 配置.travis.yml
+
+运行自动化测试框架
+
+```yaml
+language: node_js               # 项目语言，node 项目就按照这种写法就OK了
+node_js:
+- 13.2.0 			# 项目环境
+cache:				# 缓存 node_js 依赖，提升第二次构建的效率
+  directories:
+  - node_modules
+test:
+  - npm run test # 运行自动测试框架
+```
+
+>  参考教程：[Travis CI Tutorial](https://docs.travis-ci.com/user/tutorial/)
+
+#### 上传配置到github
+
+#### 启动持续集成
+
+通过github账号登录travis
+
+![image-20200211114132012](assets/image-20200211114132012.png)
+
+![image-20200210xxsdfds](assets/image-20200210xxsdfds.png)
+
+
+
+
+
+#### 获取持续集成通过徽标
+
+将上面 URL 中的 {GitHub 用户名} 和 {项目名称} 替换为自己项目的即可，最后可以将集成完成后的 markdown 代码贴在自己的项目上
+
+
+
+```
+http://img.shields.io/travis/{GitHub 用户名}/{项目名称}.svg
+```
+
+
+
+
+
+![image-20200211115443738](assets/image-20200211115443738.png)
+
+
+
+设置Codecov
+
+Codecov是一个开源的测试结果展示平台，将测试结果可视化。Github上许多开源项目都使用了Codecov来展示单测结果。Codecov跟Travis CI一样都支持Github账号登录，同样会同步Github中的项目。
+
+#### https://codecov.io/
+
+
+
+
+
+![image-20200211162427682](assets/image-20200211162427682.png)
+
+
+
+
+
+上传令牌
+
+
+
+
 
 ```js
 npm install codecov -d
@@ -286,9 +366,38 @@ npm install codecov -d
 
 
 
+package.json
+
+```json
+{
+    ...,
+    "scripts": {
+        ...,
+        "codecov": "codecov"
+    }
+}
+```
 
 
 
+travis.yaml中添加
+
+```yaml
+after_success:			# 构建成功后的自定义操作
+- npm run codecov		# 生成 Github 首页的 codecov 图标
+```
+
+
+
+
+
+
+
+### 测试报告-Coveralls
+
+Coveralls是自动测试报告的历史追踪和分析应用。
+
+(- 后续更新 ---)
 
 ## TDD方式编写功能
 
