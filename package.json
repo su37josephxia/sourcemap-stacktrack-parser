@@ -9,7 +9,8 @@
     "test": "jest --config jestconfig.json",
     "dev": "jest --config jestconfig.json --watch",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "codecov": "codecov"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@types/node": "^13.7.0",
+    "codecov": "^3.6.5",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^6.0.0",
     "typescript": "^3.7.5"

@@ -1,4 +1,4 @@
-# 从0到1开发一个开源项目(TS + ESlint + Jest + TravisCI)
+# 从0到1开发一个开源项目(TS + ESlint + Jest)
 
 [toc]
 
@@ -264,9 +264,31 @@ npm install husky -d
 }
 ```
 
-#### 验证
+#### 验证结果
 
 ![image-20200210174945767](assets/image-20200210174945767.png)
+
+
+
+### 设置Travis CI
+
+Travis CI 提供的是持续集成服务，它仅支持 Github，不支持其他代码托管。它需要绑定 Github 上面的项目，还需要该项目含有构建或者测试脚本。只要有新的代码，就会自动抓取。然后，提供一个虚拟机环境，执行测试，完成构建，还能部署到服务器。只要代码有变更，就自动运行构建和测试，反馈运行结果。确保符合预期以后，再将新代码集成到主干。
+
+登录
+
+登录https://www.travis-ci.org/网站
+
+#### 测试覆盖率
+
+```js
+npm install codecov -d
+```
+
+
+
+
+
+
 
 ## TDD方式编写功能
 
@@ -278,9 +300,31 @@ npm install husky -d
 
 ### 编写README.md
 
+#### README最佳实践
+
 参考https://github.com/jehna/readme-best-practices/blob/master/README-default.md
 
+#### 添加修饰图标
+
 ### 编写package.json描述信息
+
+### JSdoc
+
+## 添加开源许可证
+
+每个开源项目都需要配置一份合适的开源许可证来告知所有浏览过我们的项目的用户他们拥有哪些权限，具体许可证的选取可以参照阮一峰前辈绘制的这张图表：
+
+
+
+![licenses](https://user-gold-cdn.xitu.io/2018/8/14/16537ae93a141d66?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+
+
+那我们又该怎样为我们的项目添加许可证了？其实 Github 已经为我们提供了非常简便的可视化操作: 	我们平时在逛 github 网站的时候，发现不少项目都在 [README.md](http://README.md) 中添加徽标，对项目进行标记和说明，这些小图标给项目增色不少，不仅简单美观，而且还包含清晰易懂的信息。
+
+1. 打开我们的开源项目并切换至 **Insights** 面板
+2. 点击 Community 标签
+3. 如果您的项目没有添加 License，在 **Checklist** 里会提示您添加许可证，点击 **Add** 按钮就进入可视化操作流程了
 
 
 
