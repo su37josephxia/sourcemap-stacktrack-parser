@@ -344,16 +344,6 @@ Codecov是一个开源的测试结果展示平台，将测试结果可视化。G
 
 #### https://codecov.io/
 
-
-
-
-
-![image-20200211162427682](assets/image-20200211162427682.png)
-
-
-
-
-
 上传令牌
 
 
@@ -385,6 +375,26 @@ travis.yaml中添加
 ```yaml
 after_success:			# 构建成功后的自定义操作
 - npm run codecov		# 生成 Github 首页的 codecov 图标
+```
+
+
+
+![image-20200211165610650](assets/image-20200211165610650.png)
+
+
+
+将图标嵌入到README.md之中
+
+```
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/<Github Username>/<Repository Name>/&lt;Branch Name>.svg?style=flat-square)](https://codecov.io/gh/<Github Username>/<Repository Name>/)
+```
+
+
+
+
+
+```js
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/su37josephxia/sourcemap-stacktrack-parser/master.svg?style=flat-square)](https://codecov.io/gh/su37josephxia/sourcemap-stacktrack-parser)
 ```
 
 
