@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node-dev ./src/index.ts -P tsconfig.json --no-cache",
     "build": "tsc -P tsconfig.json",
-    "test": "jest --config jestconfig.json",
+    "test": "jest --config jestconfig.json --coverage",
     "dev": "jest --config jestconfig.json --watch",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",

@@ -126,7 +126,7 @@ npm install jest ts-jest @types/jest -d
 ```json
 {
   "scripts": {
-    "test": "jest --config jestconfig.json --watch",
+    "test": "jest --config jestconfig.json --coverage",
   }
 }
 ```
