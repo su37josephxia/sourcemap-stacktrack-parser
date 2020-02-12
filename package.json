@@ -1,7 +1,7 @@
 {
   "name": "sourcemap-stacktrack-parser",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "sourcemap-stacktrack-parser",
   "main": "lib/index.js",
   "scripts": {
     "start": "ts-node-dev ./src/index.ts -P tsconfig.json --no-cache",
@@ -18,7 +18,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/su37josephxia/sourcemap-stacktrack-parser/issues"
   },
