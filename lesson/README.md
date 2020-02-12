@@ -621,7 +621,7 @@ npm run dev
 
 每个开源项目都需要配置一份合适的开源许可证来告知所有浏览过我们的项目的用户他们拥有哪些权限，具体许可证的选取可以参照阮一峰前辈绘制的这张图表：
 
-
+![image-20200212155122396](assets/image-20200212155122396.png)
 
 
 
@@ -635,14 +635,40 @@ npm run dev
 
 
 
+## 发布到NPM仓库
+
+### 创建发布脚本
+
+publish.sh
+
+```bash
+#!/usr/bin/env bash
+npm config get registry # 检查仓库镜像库
+npm config set registry=http://registry.npmjs.org
+echo '请进行登录相关操作：'
+npm login # 登陆
+echo "-------publishing-------"
+npm publish # 发布
+npm config set registry=https://registry.npm.taobao.org # 设置为淘宝镜像
+echo "发布完成"
+exit
+```
+
+执行发布
+
+```bash
+./publish.sh
+```
+
+填入github用户名密码后
+
+![image-20200212155812424](assets/image-20200212155812424.png)
 
 
-## 部署上线
 
-启动持续集成
+登录https://www.npmjs.com/~josephxia
 
+![image-20200212155918645](assets/image-20200212155918645.png)
 
+就可以看到自己的第一个开源作品诞生啦。
 
-### 提交git仓库
-
-### 发布npm仓库
