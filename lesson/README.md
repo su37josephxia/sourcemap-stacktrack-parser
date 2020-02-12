@@ -1,6 +1,8 @@
+![image-20200212163254308](assets/image-20200212163254308.png)
+
 # 从0到1开发一个开源项目(TS + ESlint + Jest + TravisCI)
 
-[toc]
+最近想尝试一下如何开源一个项目，正好手边做异常监控的时候遇到一个功能。就是解析errorstack中的源码位置。在npm中找了好久都没有合适的库。正好自己造一个轮子发布出来。也趁这个机会把开源过程整理一下。
 
 ## 搭建项目框架
 
@@ -12,8 +14,6 @@ mkdir sourcemap-stacktrack-parser
 # 创建README.md文件
 echo "# sourcemap-stacktrack-parser" >> README.md
 ```
-
-
 
 ### 初始化git仓库
 
@@ -29,8 +29,6 @@ git remote add origin git@github.com:su37josephxia/sourcemap-stacktrack-parser.g
 git push -u origin master
 
 ```
-
-
 
 ### 初始化npm
 
@@ -82,8 +80,6 @@ echo 'console.log("helloworld")' >> src/index.ts
     "build": "tsc -P tsconfig.json",
 }
 ```
-
-
 
 #### 修改程序入口
 
@@ -137,8 +133,6 @@ npm install jest ts-jest @types/jest -d
 }
 ```
 
-
-
 #### 源码中导出一个函数
 
 ```js
@@ -164,11 +158,7 @@ test("Index add fun", () => {
 npm run test
 ```
 
-
-
 ### 初始化Eslint
-
-
 
 安装eslint包
 
@@ -282,7 +272,7 @@ Travis CI 提供的是持续集成服务，它仅支持 Github，不支持其他
 
 
 
-我们需要
+这个项目需要Travis在提交后自动进行测试并且向codecov提供测试报告。
 
 - 测试
 - 报告分析
@@ -344,25 +334,17 @@ http://img.shields.io/travis/{GitHub 用户名}/{项目名称}.svg
 
 
 
-设置Codecov
+#### 设置Codecov
 
 Codecov是一个开源的测试结果展示平台，将测试结果可视化。Github上许多开源项目都使用了Codecov来展示单测结果。Codecov跟Travis CI一样都支持Github账号登录，同样会同步Github中的项目。
 
-#### https://codecov.io/
-
-上传令牌
-
-
-
-
+https://codecov.io/
 
 ```js
 npm install codecov -d
 ```
 
-
-
-package.json
+在package.json添加codecov
 
 ```json
 {
@@ -374,9 +356,7 @@ package.json
 }
 ```
 
-
-
-travis.yaml中添加
+在travis.yaml中添加
 
 ```yaml
 after_success:			# 构建成功后的自定义操作
@@ -395,13 +375,9 @@ after_success:			# 构建成功后的自定义操作
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/<Github Username>/<Repository Name>/&lt;Branch Name>.svg?style=flat-square)](https://codecov.io/gh/<Github Username>/<Repository Name>/)
 ```
 
+最后获取测试通过图标
 
-
-
-
-```js
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/su37josephxia/sourcemap-stacktrack-parser/master.svg?style=flat-square)](https://codecov.io/gh/su37josephxia/sourcemap-stacktrack-parser)
-```
 
 
 
@@ -672,3 +648,8 @@ exit
 
 就可以看到自己的第一个开源作品诞生啦。
 
+## 总结
+
+基本上把开源过程和TDD的开发走了一遍。
+
+因为是第一遍完整的走感觉还是挺麻烦的。后续我也找找有没有相应的脚手架和工具。如果没有特别合适的考虑自己造一个这样的轮子。
