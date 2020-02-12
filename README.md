@@ -1,7 +1,6 @@
 # Sourcemap-Stacktrack-Parser
 
-[![Codecov Coverage](https://img.shields.io/codecov/c/github/su37josephxia/sourcemap-stacktrack-parser/master.svg?style=flat-square)](https://codecov.io/gh/su37josephxia/sourcemap-stacktrack-parser)[![Build Status](https://www.travis-ci.org/su37josephxia/sourcemap-stacktrack-parser.svg?branch=master)](https://www.travis-ci.org/su37josephxia/sourcemap-stacktrack-parser)
-
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/su37josephxia/sourcemap-stacktrack-parser/master.svg?style=flat-square)](https://codecov.io/gh/su37josephxia/sourcemap-stacktrack-parser)[![Build Status](https://www.travis-ci.org/su37josephxia/sourcemap-stacktrack-parser.svg?branch=master)](https://www.travis-ci.org/su37josephxia/sourcemap-stacktrack-parser)![GitHub All Releases](https://img.shields.io/github/downloads/su37josephxia/sourcemap-stacktrack-parser/total)
 
 
 

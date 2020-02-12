@@ -83,13 +83,19 @@ echo 'console.log("helloworld")' >> src/index.ts
 }
 ```
 
-#### git忽略lib文件
-
-```bash
-echo '/lib' >> .gitignore
-```
 
 
+#### 修改程序入口
+
+修改package.json中
+
+````json
+{
+  ...
+  "main": "lib/index.js",
+  ...
+}
+````
 
 #### 验证
 
@@ -399,19 +405,181 @@ after_success:			# 构建成功后的自定义操作
 
 
 
-
-
-
-
-### 测试报告-Coveralls
-
-Coveralls是自动测试报告的历史追踪和分析应用。
-
-(- 后续更新 ---)
-
 ## TDD方式编写功能
 
+### 编写测试用例
 
+这个库的功能需要将js错误的调用栈中的压缩代码位置转换为源码位置。当然要借助sourcemap的帮忙。所以输入数据分别是errorstack和sourcemap。
+
+![image-20200212144102845](assets/image-20200212144102845.png)
+
+首先把测试用的sourcemap放入src/\__test\__目录中
+
+然后编写测试用例index.spec.ts
+
+```js
+import StackParser from "../index"
+const { resolve } = require('path')
+const error = {
+  stack: 'ReferenceError: xxx is not defined\n' +
+    '    at http://localhost:7001/public/bundle.e7877aa7bc4f04f5c33b.js:1:1392\n' +
+    '    at http://localhost:7001/public/bundle.e7877aa7bc4f04f5c33b.js:1:1392',
+  message: 'Uncaught ReferenceError: xxx is not defined',
+  filename: 'http://localhost:7001/public/bundle.e7877aa7bc4f04f5c33b.js'
+}
+describe('parseStackTrack Method:', () => {
+  it("测试Stack转换为StackFrame对象", () => {
+    expect(StackParser.parseStackTrack(error.stack, error.message))
+      .toContainEqual(
+        {
+          columnNumber: 1392,
+          lineNumber: 1,
+          fileName: 'http://localhost:7001/public/bundle.e7877aa7bc4f04f5c33b.js',
+          source: '    at http://localhost:7001/public/bundle.e7877aa7bc4f04f5c33b.js:1:1392'
+        })
+  })
+})
+
+describe('parseOriginStackTrack Method:', () => {
+  it("正常测试", async () => {
+    const parser = new StackParser(resolve(__dirname, './data'))
+    const originStack = await parser.parseOriginStackTrack(error.stack, error.message)
+    // 断言 
+    expect(originStack[0]).toMatchObject(
+      {
+        source: 'webpack:///src/index.js',
+        line: 24,
+        column: 4,
+        name: 'xxx'
+      }
+    )
+  })
+
+  it("sourcemap文件不存在", async () => {
+    const parser = new StackParser(resolve(__dirname, './xxx'))
+    const originStack = await parser.parseOriginStackTrack(error.stack, error.message)
+    // 断言 
+    expect(originStack[0]).toMatchObject(
+      {
+        columnNumber: 1392,
+        lineNumber: 1,
+        fileName: 'http://localhost:7001/public/bundle.e7877aa7bc4f04f5c33b.js',
+        source: '    at http://localhost:7001/public/bundle.e7877aa7bc4f04f5c33b.js:1:1392'
+      }
+    )
+  })
+})
+
+```
+
+
+
+### 实现功能
+
+```js
+const ErrorStackParser = require('error-stack-parser')
+const { SourceMapConsumer } = require('source-map')
+const path = require('path')
+const fs = require('fs')
+export default class StackParser {
+    private sourceMapDir: string
+    private consumers: Object
+    constructor(sourceMapDir) {
+        this.sourceMapDir = sourceMapDir
+        this.consumers = {}
+    }
+    /**
+     * 转换错误对象
+     * @param stack 堆栈字符串
+     * @param message 错误信息
+     */
+    static parseStackTrack(stack: string, message?: string) {
+        const error = new Error(message)
+        error.stack = stack
+        const stackFrame = ErrorStackParser.parse(error)
+        return stackFrame
+    }
+
+    /**
+     * 转换错误对象
+     * @param stack 堆栈字符串
+     * @param message 错误信息
+     */
+    parseOriginStackTrack(stack: string, message?: string) {
+        const frame = StackParser.parseStackTrack(stack,message)
+        return this.getOriginalErrorStack(frame)
+    }
+
+
+
+    /**
+     * 转换源代码运行栈
+     * @param stackFrame 堆栈片段
+     */
+    async getOriginalErrorStack(stackFrame: Array<Object>) {
+        const origin = []
+        for (let v of stackFrame) {
+            origin.push(await this.getOriginPosition(v))
+        }
+        return origin
+    }
+
+    /**
+     * 转换源代码运行栈
+     * @param stackFrame 堆栈片段
+     */
+    async getOriginPosition(stackFrame) {
+        let { columnNumber, lineNumber, fileName } = stackFrame
+        fileName = path.basename(fileName)
+        // 判断consumer是否存在
+        let consumer = this.consumers[fileName]
+        if (consumer === undefined) {
+            // 读取sourcemap
+            const sourceMapPath = path.resolve(this.sourceMapDir, fileName + '.map')
+            // 判断文件是否存在
+            if (!fs.existsSync(sourceMapPath)) {
+                return stackFrame
+            }
+            const content = fs.readFileSync(sourceMapPath, 'utf-8')
+            // console.log('content',content)
+            consumer = await new SourceMapConsumer(content, null)
+            this.consumers[fileName] = consumer
+        }
+        const parseData = consumer.originalPositionFor({line:lineNumber,column:columnNumber})
+
+        return parseData
+    }
+
+}
+```
+
+
+
+### 启动jest进行调试
+
+```bash
+npm run dev
+```
+
+![image-20200212145126731](assets/image-20200212145126731.png)
+
+
+
+## 添加开源许可证
+
+每个开源项目都需要配置一份合适的开源许可证来告知所有浏览过我们的项目的用户他们拥有哪些权限，具体许可证的选取可以参照阮一峰前辈绘制的这张图表：
+
+![image-20200212152048790](assets/image-20200212152048790.png)
+
+
+
+
+
+那我们又该怎样为我们的项目添加许可证了？其实 Github 已经为我们提供了非常简便的可视化操作: 	我们平时在逛 github 网站的时候，发现不少项目都在 [README.md](http://README.md) 中添加徽标，对项目进行标记和说明，这些小图标给项目增色不少，不仅简单美观，而且还包含清晰易懂的信息。
+
+1. 打开我们的开源项目并切换至 **Insights** 面板
+2. 点击 Community 标签
+3. 如果您的项目没有添加 License，在 **Checklist** 里会提示您添加许可证，点击 **Add** 按钮就进入可视化操作流程了
 
 
 
@@ -419,11 +587,27 @@ Coveralls是自动测试报告的历史追踪和分析应用。
 
 ### 编写README.md
 
-#### README最佳实践
+#### 编写内容
+
+可以参考README最佳实践
 
 参考https://github.com/jehna/readme-best-practices/blob/master/README-default.md
 
 #### 添加修饰图标
+
+之前已经添加了travisci的build图标和codecov的覆盖率图表。
+
+如果想继续丰富图标给自己的项目增光添彩登录
+
+[shields.io/](http://shields.io/) 这个网站
+
+比如以添加github的下载量为例
+
+![image-20200212151934578](assets/image-20200212151934578.png)
+
+![image-20200212151848746](assets/image-20200212151848746.png)
+
+
 
 ### 编写package.json描述信息
 
@@ -435,7 +619,7 @@ Coveralls是自动测试报告的历史追踪和分析应用。
 
 
 
-![licenses](https://user-gold-cdn.xitu.io/2018/8/14/16537ae93a141d66?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
 
 
 
@@ -449,7 +633,11 @@ Coveralls是自动测试报告的历史追踪和分析应用。
 
 
 
-## 提交与发布代码
+## 部署上线
+
+启动持续集成
+
+
 
 ### 提交git仓库
 
