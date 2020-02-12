@@ -1,4 +1,4 @@
-![image-20200212163254308](assets/image-20200212163254308.png)
+![image-20200212163254308](./assets/image-20200212163254308.png)
 
 # 从0到1开发一个开源项目(TS + ESlint + Jest + TravisCI)
 
@@ -99,7 +99,7 @@ echo 'console.log("helloworld")' >> src/index.ts
 npm start
 ```
 
-![image-20200210163007258](assets/image-20200210163007258.png)
+![image-20200210163007258](./assets/image-20200210163007258.png)
 
 
 
@@ -262,7 +262,7 @@ npm install husky -d
 
 #### 验证结果
 
-![image-20200210174945767](assets/image-20200210174945767.png)
+![image-20200210174945767](./assets/image-20200210174945767.png)
 
 
 
@@ -308,9 +308,9 @@ test:
 
 通过github账号登录travis
 
-![image-20200211114132012](assets/image-20200211114132012.png)
+![image-20200211114132012](./assets/image-20200211114132012.png)
 
-![image-20200210xxsdfds](assets/image-20200210xxsdfds.png)
+![image-20200210xxsdfds](./assets/image-20200210xxsdfds.png)
 
 
 
@@ -320,7 +320,7 @@ test:
 
 将上面 URL 中的 {GitHub 用户名} 和 {项目名称} 替换为自己项目的即可，最后可以将集成完成后的 markdown 代码贴在自己的项目上
 
-![image-20200211180202113](assets/image-20200211180202113.png)
+![image-20200211180202113](./assets/image-20200211180202113.png)
 
 ```
 http://img.shields.io/travis/{GitHub 用户名}/{项目名称}.svg
@@ -330,7 +330,7 @@ http://img.shields.io/travis/{GitHub 用户名}/{项目名称}.svg
 
 
 
-![image-20200211115443738](assets/image-20200211115443738.png)
+![image-20200211115443738](./assets/image-20200211115443738.png)
 
 
 
@@ -365,7 +365,7 @@ after_success:			# 构建成功后的自定义操作
 
 
 
-![image-20200211165610650](assets/image-20200211165610650.png)
+![image-20200211165610650](./assets/image-20200211165610650.png)
 
 
 
@@ -387,7 +387,7 @@ after_success:			# 构建成功后的自定义操作
 
 这个库的功能需要将js错误的调用栈中的压缩代码位置转换为源码位置。当然要借助sourcemap的帮忙。所以输入数据分别是errorstack和sourcemap。
 
-![image-20200212144102845](assets/image-20200212144102845.png)
+![image-20200212144102845](./assets/image-20200212144102845.png)
 
 首先把测试用的sourcemap放入src/\__test\__目录中
 
@@ -537,7 +537,7 @@ export default class StackParser {
 npm run dev
 ```
 
-![image-20200212145126731](assets/image-20200212145126731.png)
+![image-20200212145126731](./assets/image-20200212145126731.png)
 
 
 
@@ -545,7 +545,7 @@ npm run dev
 
 每个开源项目都需要配置一份合适的开源许可证来告知所有浏览过我们的项目的用户他们拥有哪些权限，具体许可证的选取可以参照阮一峰前辈绘制的这张图表：
 
-![image-20200212152048790](assets/image-20200212152048790.png)
+![image-20200212152048790](./assets/image-20200212152048790.png)
 
 
 
@@ -557,9 +557,9 @@ npm run dev
 2. 点击 Community 标签
 3. 如果您的项目没有添加 License，在 **Checklist** 里会提示您添加许可证，点击 **Add** 按钮就进入可视化操作流程了
 
-![image-20200212153554131](assets/image-20200212153554131.png)
+![image-20200212153554131](./assets/image-20200212153554131.png)
 
-![image-20200212154111197](assets/image-20200212154111197.png)
+![image-20200212154111197](./assets/image-20200212154111197.png)
 
 
 
@@ -583,9 +583,9 @@ npm run dev
 
 比如以添加github的下载量为例
 
-![image-20200212151934578](assets/image-20200212151934578.png)
+![image-20200212151934578](./assets/image-20200212151934578.png)
 
-![image-20200212151848746](assets/image-20200212151848746.png)
+![image-20200212151848746](./assets/image-20200212151848746.png)
 
 
 
@@ -597,7 +597,7 @@ npm run dev
 
 每个开源项目都需要配置一份合适的开源许可证来告知所有浏览过我们的项目的用户他们拥有哪些权限，具体许可证的选取可以参照阮一峰前辈绘制的这张图表：
 
-![image-20200212155122396](assets/image-20200212155122396.png)
+![image-20200212155122396](./assets/image-20200212155122396.png)
 
 
 
@@ -638,13 +638,13 @@ exit
 
 填入github用户名密码后
 
-![image-20200212155812424](assets/image-20200212155812424.png)
+![image-20200212155812424](./assets/image-20200212155812424.png)
 
 
 
 登录https://www.npmjs.com/~josephxia
 
-![image-20200212155918645](assets/image-20200212155918645.png)
+![image-20200212155918645](./assets/image-20200212155918645.png)
 
 就可以看到自己的第一个开源作品诞生啦。
 
@@ -653,3 +653,4 @@ exit
 基本上把开源过程和TDD的开发走了一遍。
 
 因为是第一遍完整的走感觉还是挺麻烦的。后续我也找找有没有相应的脚手架和工具。如果没有特别合适的考虑自己造一个这样的轮子。
+
