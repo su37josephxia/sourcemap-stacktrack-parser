@@ -581,6 +581,10 @@ npm run dev
 2. 点击 Community 标签
 3. 如果您的项目没有添加 License，在 **Checklist** 里会提示您添加许可证，点击 **Add** 按钮就进入可视化操作流程了
 
+![image-20200212153554131](assets/image-20200212153554131.png)
+
+![image-20200212154111197](assets/image-20200212154111197.png)
+
 
 
 ## 编写文档
