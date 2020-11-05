@@ -10,6 +10,7 @@
     "dev": "jest --config jestconfig.json --watch",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
+    "docs":"tsc -P tsconfig.json && jsdoc ./lib/index.js",
     "codecov": "codecov"
   },
   "repository": {
@@ -32,6 +33,7 @@
     "error-stack-parser": "^2.0.6",
     "husky": "^4.2.1",
     "jest": "^25.1.0",
+    "jsdoc": "^3.6.6",
     "prettier": "^1.19.1",
     "ts-jest": "^25.2.0",
     "tslint-config-prettier": "^1.18.0"

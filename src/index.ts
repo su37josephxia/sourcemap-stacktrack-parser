@@ -2,6 +2,10 @@ const ErrorStackParser = require("error-stack-parser");
 const { SourceMapConsumer } = require("source-map");
 const path = require("path");
 const fs = require("fs");
+
+/**
+ * @class 解析Stacktrack中的源码位置
+ */
 export default class StackParser {
   private sourceMapDir: string;
   private consumers: Object;
